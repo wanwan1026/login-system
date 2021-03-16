@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>會員頁</title>
+        <title>首頁</title>
         <style>
             .body{
                 margin: 0px;
@@ -18,20 +18,32 @@
                 padding: 50px;
                 text-align: center;
             }
+            .form{
+                padding-bottom: 15px;
+            }
+            .button{
+                margin-top: 15px;
+                padding: 5px;
+            }
         </style>
     </head>
     <body class="body">
         <!-- 網頁的標頭，通常放置網站標題 -->
         <header class="header">
             <h1 class="logo">
-                <a>歡迎光臨，這是會員頁</a>
+                <a>歡迎光臨，請輸入帳號密碼</a>
             </h1>
         </header>
         <!-- 網頁的主要內容 -->
         <main>
             <!-- 自訂的區塊，例如數篇摘要組成的空間 -->
             <section class="section">
-                <h2>恭喜您，成功登入系統</h2>
+                <h2>登錄系統</h2>
+                <form action="/signin" class="form" method="POST">
+                帳號 : <input type="text" name="IDnumber"/><br>
+                密碼 : <input type="text" name="password"/><br>
+                <button class="button">登入</button>
+                </form>
             </section>
         </main>
     </body>
