@@ -38,7 +38,7 @@ def signin ():
         else :
             return render_template("error.html")
 
-@app.route("/signout",methods=["POST"])
+@app.route("/signout")
 def signout ():
     del session["IDnumber"]
     del session["password"]
