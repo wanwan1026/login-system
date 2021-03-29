@@ -29,13 +29,24 @@
     </head>
     <body class="body">
         <!-- 網頁的標頭，通常放置網站標題 -->
-        <header class="header">
+        <header>
             <h1 class="logo">
                 <a>歡迎光臨，請輸入帳號密碼</a>
             </h1>
         </header>
         <!-- 網頁的主要內容 -->
         <main>
+            <!-- 自訂的區塊，例如數篇摘要組成的空間 -->
+            <section class="section">
+                <h2>註冊帳號</h2>
+                <form action="/signin" class="form" method="POST">
+                姓名 : <input type="text" name="username"/><br>
+                帳號 : <input type="text" name="registered_IDnumber"/><br>
+                密碼 : <input type="text" name="registered_password"/><br>
+                <button class="button">註冊</button>
+                </form>
+            </section>
+            <hr size="1px" align="center" width="50%">
             <!-- 自訂的區塊，例如數篇摘要組成的空間 -->
             <section class="section">
                 <h2>登錄系統</h2>
