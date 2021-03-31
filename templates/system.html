@@ -40,9 +40,9 @@
             <section class="section">
                 <h2>註冊帳號</h2>
                 <form action="/registered" class="form" method="POST">
-                姓名 : <input type="text" name="username"/><br>
-                帳號 : <input type="text" name="registered_IDnumber"/><br>
-                密碼 : <input type="text" name="registered_password"/><br>
+                姓名 : <input type="text" name="username" required/><br>
+                帳號 : <input type="text" name="registered_username" required/><br>
+                密碼 : <input type="text" name="registered_password" required/><br>
                 <button class="button">註冊</button>
                 </form>
             </section>
@@ -51,8 +51,8 @@
             <section class="section">
                 <h2>登錄系統</h2>
                 <form action="/signin" class="form" method="POST">
-                帳號 : <input type="text" name="IDnumber"/><br>
-                密碼 : <input type="text" name="password"/><br>
+                帳號 : <input type="text" name="username" required/><br>
+                密碼 : <input type="text" name="password" required/><br>
                 <button class="button">登入</button>
                 </form>
             </section>
