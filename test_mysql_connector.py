@@ -94,6 +94,86 @@ if result == password :
 #       cursor.execute(mysqldata)
 #     registered.close()
 
+
+    signup = pymysql.connect(
+    host='localhost',
+    user='root',
+    password='ricetia',
+    db='website',
+    cursorclass=pymysql.cursors.DictCursor #以字典方式儲存
+    )
+
+    with signup.cursor() as cursor:
+        mysqldata = "SELECT `username` FROM `user`"
+        cursor.execute(mysqldata)
+        whitelist = cursor.fetchall()
+    signup.close()
+
+    name = request.form["username"]
+    username = request.form["registered_username"]
+    password = request.form["registered_password"]
+
+    if username != whitelist[0] :
+      signup = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='ricetia',
+        db='website',
+        )
+      with signup.cursor() as cursor:
+          mysqlsave = "INSERT INTO user (name,username,password) VALUES (%s,%s,%s)"
+          cursor.execute(mysqlsave,(name,username,password))
+          signup.commit()
+      signup.close()
+      return render_template("system.html")
+    else :
+      error = "帳號已經被註冊過"
+        return render_template("error.html",data=error)
+
+
+# @app.route("/signup", methods=["POST"])
+# def signup ():
+#     signup = pymysql.connect(
+#     host='localhost',
+#     user='root',
+#     password='ricetia',
+#     db='website',
+#     cursorclass=pymysql.cursors.DictCursor #以字典方式儲存
+#     )
+
+
+#     with signup.cursor() as cursor:
+#         mysqldata = "SELECT `username`,`password` FROM `user`"
+#         cursor.execute(mysqldata)
+#         whitelist = cursor.fetchall()
+#     signup.close()
+
+#     name = request.form["username"]
+#     username = request.form["registered_username"]
+#     password = request.form["registered_password"]
+#     user_test_index = 0
+#     for i in range(len(whitelist)) :
+#         user_test = whitelist[i]["username"]
+#         if username != user_test:
+#             user_test_index=user_test_index+0
+#         else :
+#             user_test_index=user_test_index+1
+#     if user_test_index == 0 :
+#         signup = pymysql.connect(
+#             host='localhost',
+#             user='root',
+#             password='ricetia',
+#             db='website',
+#             )
+#         with signup.cursor() as cursor:
+#             mysqlsave = "INSERT INTO user (name,username,password) VALUES (%s,%s,%s)"
+#             cursor.execute(mysqlsave,(name,username,password))
+#             signup.commit()
+#         signup.close()
+#         return render_template("system.html")
+#     else :
+#         error = "帳號已經被註冊過"
+#         return render_template("error.html",data=error)
     
 
 
