@@ -15,7 +15,10 @@
                 padding: 30px;
             }
             .section{
-                padding: 50px;
+                text-align: center;
+            }
+            .section2{
+                padding-bottom: 20px;
                 text-align: center;
             }
         </style>
@@ -34,6 +37,24 @@
                 <form action="/signout">
                     <h2>{{data}}，歡迎登入系統</h2>
                     <button>登出系統</button>
+                </form>
+            </section>
+            <!-- 自訂的區塊，例如數篇摘要組成的空間 -->
+            <section class="section2">           
+                <form action="api/users">
+                    <h2>查詢會員姓名</h2>
+                    <input type="text" name="check_name" required/>
+                    <button>查詢</button>
+                    <h2></h2>
+                </form>
+            </section>
+            <!-- 自訂的區塊，例如數篇摘要組成的空間 -->
+            <section class="section2">           
+                <form action="api/user">
+                    <h2>更新我的姓名</h2>
+                    <input type="text" name="updata_name" required/>
+                    <button>更新</button>
+                    <h2></h2>
                 </form>
             </section>
         </main>
