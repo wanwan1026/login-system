@@ -10,18 +10,6 @@ from flask import jsonify
 app = Flask(__name__,static_folder="static",static_url_path="/")
 app.config['SECRET_KEY'] = 'ricetia' 
 
-#首頁變數(註冊區)
-# registered_name = request.form["registered_name"]
-# registered_username = request.form["registered_username"]
-# registered_password = request.form["registered_password"]
-#首頁變數(登錄區)
-# username = request.form["username"]
-# password = request.form["password"]
-#會員頁變數(查詢會員姓名)
-# username = request.form["username"]
-#會員頁變數(更新我的姓名)
-# updata_name = request.form["updata_name"]
-
 @app.route("/")
 def index(): 
     if 'name' in session:
