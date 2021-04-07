@@ -2,6 +2,26 @@ import mysql.connector
 import pymysql.cursors
 import pymysql
 
+check_username = 'mango'
+# check_username = request.form["check_username"]
+
+signup = pymysql.connect(
+  host='localhost',
+    user='root',
+    password='ricetia',
+    db='website',
+    cursorclass=pymysql.cursors.DictCursor #以字典方式儲存
+    )
+with signup.cursor() as cursor:
+    mysqlact = "SELECT `id`,`name`,`username` FROM `user` WHERE `username`=%s"
+    cursor.execute(mysqlact,check_username)
+    result = cursor.fetchall()
+if len(result) > 0 :
+  result = {'data':result[0]}
+else :
+  result = {'data':'null'}
+# return jsonify(result)
+print(result)
 
 
 # mydb = mysql.connector.connect(
@@ -16,31 +36,31 @@ import pymysql
 
 # name = request.form["username"]
 # username = request.form["registered_username"]
-username = 'rice'
+# username = 'rice'
 # password = request.form["registered_password"]
-password = 'rice'
+# password = 'rice'
 
-registered = pymysql.connect(
-  host='localhost',
-  user='root',
-  password='ricetia',
-  db='website',
-  )
-with registered.cursor() as cursor:
-    mysqlsave = "SELECT `password`,`name` FROM `user` WHERE `username`=%s"
-    cursor.execute(mysqlsave,username)
-    result = cursor.fetchall()
-registered.close()
+# registered = pymysql.connect(
+#   host='localhost',
+#   user='root',
+#   password='ricetia',
+#   db='website',
+#   )
+# with registered.cursor() as cursor:
+#     mysqlsave = "SELECT `password`,`name` FROM `user` WHERE `username`=%s"
+#     cursor.execute(mysqlsave,username)
+#     result = cursor.fetchall()
+# registered.close()
 
-print(result[0][1])
+# print(result[0][1])
 
-result = result[0][0]
+# result = result[0][0]
 
-# result = result.__str__()
-# result = result[3:-5]
+# # result = result.__str__()
+# # result = result[3:-5]
 
-if result == password :
-  print("成功登陸")
+# if result == password :
+#   print("成功登陸")
 
 # user_test_index = 0
 # for i in range(len(whitelist)) :
@@ -95,40 +115,40 @@ if result == password :
 #     registered.close()
 
 
-    signup = pymysql.connect(
-    host='localhost',
-    user='root',
-    password='ricetia',
-    db='website',
-    cursorclass=pymysql.cursors.DictCursor #以字典方式儲存
-    )
+    # signup = pymysql.connect(
+    # host='localhost',
+    # user='root',
+    # password='ricetia',
+    # db='website',
+    # cursorclass=pymysql.cursors.DictCursor #以字典方式儲存
+    # )
 
-    with signup.cursor() as cursor:
-        mysqldata = "SELECT `username` FROM `user`"
-        cursor.execute(mysqldata)
-        whitelist = cursor.fetchall()
-    signup.close()
+    # with signup.cursor() as cursor:
+    #     mysqldata = "SELECT `username` FROM `user`"
+    #     cursor.execute(mysqldata)
+    #     whitelist = cursor.fetchall()
+    # signup.close()
 
-    name = request.form["username"]
-    username = request.form["registered_username"]
-    password = request.form["registered_password"]
+    # name = request.form["username"]
+    # username = request.form["registered_username"]
+    # password = request.form["registered_password"]
 
-    if username != whitelist[0] :
-      signup = pymysql.connect(
-        host='localhost',
-        user='root',
-        password='ricetia',
-        db='website',
-        )
-      with signup.cursor() as cursor:
-          mysqlsave = "INSERT INTO user (name,username,password) VALUES (%s,%s,%s)"
-          cursor.execute(mysqlsave,(name,username,password))
-          signup.commit()
-      signup.close()
-      return render_template("system.html")
-    else :
-      error = "帳號已經被註冊過"
-        return render_template("error.html",data=error)
+    # if username != whitelist[0] :
+    #   signup = pymysql.connect(
+    #     host='localhost',
+    #     user='root',
+    #     password='ricetia',
+    #     db='website',
+    #     )
+    #   with signup.cursor() as cursor:
+    #       mysqlsave = "INSERT INTO user (name,username,password) VALUES (%s,%s,%s)"
+    #       cursor.execute(mysqlsave,(name,username,password))
+    #       signup.commit()
+    #   signup.close()
+    #   return render_template("system.html")
+    # else :
+    #   error = "帳號已經被註冊過"
+    #     return render_template("error.html",data=error)
 
 
 # @app.route("/signup", methods=["POST"])
@@ -174,6 +194,8 @@ if result == password :
 #     else :
 #         error = "帳號已經被註冊過"
 #         return render_template("error.html",data=error)
+
+
     
 
 

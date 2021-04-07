@@ -5,6 +5,7 @@ from flask import session
 import mysql.connector
 import pymysql.cursors
 import pymysql
+from flask import jsonify
 
 app = Flask(__name__,static_folder="static",static_url_path="/")
 app.config['SECRET_KEY'] = 'ricetia' 
@@ -17,7 +18,7 @@ app.config['SECRET_KEY'] = 'ricetia'
 # username = request.form["username"]
 # password = request.form["password"]
 #會員頁變數(查詢會員姓名)
-# check_name = request.form["check_name"]
+# username = request.form["username"]
 #會員頁變數(更新我的姓名)
 # updata_name = request.form["updata_name"]
 
@@ -108,5 +109,31 @@ def signup ():
         return render_template("error.html",data=error)
     
     signup.close() #把資料庫關起來
+
+@app.route("/api/users")
+def users():
+    result = ""
+    check_username = request.args.get("username","")
+    
+    signup = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='ricetia',
+        db='website',
+        cursorclass=pymysql.cursors.DictCursor #以字典方式儲存
+        )
+    with signup.cursor() as cursor:
+        mysqlact = "SELECT `id`,`name`,`username` FROM `user` WHERE `username`=%s"
+        cursor.execute(mysqlact,check_username)
+        result = cursor.fetchall()
+    
+    if len(result) > 0 :
+        result = {'data':result[0]}
+        return jsonify(result)
+    else :
+        result = {'data':'null'}
+        return jsonify(result)
+    
+    signup.close()
 
 app.run(port=3000)

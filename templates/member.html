@@ -41,11 +41,11 @@
             </section>
             <!-- 自訂的區塊，例如數篇摘要組成的空間 -->
             <section class="section2">           
-                <form action="api/users">
+                <form id="check_name">
                     <h2>查詢會員姓名</h2>
-                    <input type="text" name="check_name" required/>
-                    <button>查詢</button>
-                    <h2></h2>
+                    <input type="text" name="username" id="check" required/>
+                    <button onclick="getdata();" type="button">查詢</button>
+                    <h2>{{data2}}</h2>
                 </form>
             </section>
             <!-- 自訂的區塊，例如數篇摘要組成的空間 -->
@@ -58,5 +58,19 @@
                 </form>
             </section>
         </main>
+        <script type="text/javascript">
+            function getdata(){
+                let username = document.getElementById("check");
+                let req = "http://127.0.0.1:3000/api/users?username="+username.value; //在瀏覽器上面顯示的即爲HTMLInputElement,不是實際的輸入值,添加value屬性
+                fetch(req).then(function(response){
+				    		return response.json();
+				    	}).then(function(result){
+                            result = JSON.stringify(result); // 把json类型转换为String类型
+                            let mycheck = document.getElementById("check_name");
+                            let text = document.createTextNode(result);
+                            mycheck.appendChild(text);
+                })
+            }
+        </script>
     </body>
 </html>
