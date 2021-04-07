@@ -46,29 +46,45 @@
                     <input type="text" name="username" id="check" required/>
                     <button onclick="getdata();" type="button">查詢</button>
                     <h2>{{data2}}</h2>
+                    <div id="childSpan">
+                        <span></span>
+                    </div>
                 </form>
             </section>
             <!-- 自訂的區塊，例如數篇摘要組成的空間 -->
-            <section class="section2">           
+            <!-- <section class="section2">           
                 <form action="api/user">
                     <h2>更新我的姓名</h2>
                     <input type="text" name="updata_name" required/>
                     <button>更新</button>
                     <h2></h2>
                 </form>
-            </section>
+            </section> -->
         </main>
         <script type="text/javascript">
             function getdata(){
                 let username = document.getElementById("check");
                 let req = "http://127.0.0.1:3000/api/users?username="+username.value; //在瀏覽器上面顯示的即爲HTMLInputElement,不是實際的輸入值,添加value屬性
                 fetch(req).then(function(response){
-				    		return response.json();
-				    	}).then(function(result){
-                            result = JSON.stringify(result); // 把json类型转换为String类型
-                            let mycheck = document.getElementById("check_name");
-                            let text = document.createTextNode(result);
-                            mycheck.appendChild(text);
+				    return response.json();
+				    }).then(function(result){
+                        
+                        if(result["data"] == "null"){
+                            check_result = "無此會員。"
+                        }
+                        else {
+                            name = result["data"]["name"];
+                            username = result["data"]["username"];
+                            check_result = name + " ( " + username + " ) " ;
+                        }
+
+                        let sp2 = document.getElementById("childSpan");
+                        let lis = sp2.getElementsByTagName("span");
+                        sp2.removeChild(lis[0]);
+                        let sp1 = document.createElement("span");
+                        let sp1_content = document.createTextNode(check_result);
+                        sp1.appendChild(sp1_content);
+                        sp2.appendChild(sp1)
                 })
             }
         </script>
