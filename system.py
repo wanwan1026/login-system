@@ -85,7 +85,8 @@ def signup ():
         mysqldata = "SELECT `username` FROM `user` WHERE `username`=%s"
         cursor.execute(mysqldata,registered_username)
         result = cursor.fetchall()
-    
+    signup.close()
+
     if len(result) < 1 :
         with signup.cursor() as cursor:
             mysqlact = "INSERT INTO user (name,username,password) VALUES (%s,%s,%s)"
@@ -95,8 +96,6 @@ def signup ():
     else :
         error = "帳號已經被註冊過"
         return render_template("error.html",data=error)
-    
-    signup.close() #把資料庫關起來
 
 @app.route("/api/users")
 def users():
@@ -114,7 +113,8 @@ def users():
         mysqlact = "SELECT `id`,`name`,`username` FROM `user` WHERE `username`=%s"
         cursor.execute(mysqlact,check_username)
         result = cursor.fetchall()
-    
+    signup.close()
+
     if len(result) > 0 :
         result = {'data':result[0]}
         return jsonify(result)
@@ -122,6 +122,5 @@ def users():
         result = {'data':'null'}
         return jsonify(result)
     
-    signup.close()
 
 app.run(port=3000)
